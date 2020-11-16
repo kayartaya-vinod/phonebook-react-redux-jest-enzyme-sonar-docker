@@ -11,7 +11,7 @@ const emptyContact = {
     picture: 'http://kvinod.com/profile-pictures/default-profile.png'
 };
 
-const ContactForm = ({ addContact }) => {
+export const ContactForm = ({ addNewContact }) => {
 
     const [state, setState] = useState({ ...emptyContact });
     const [errs, setErrs] = useState({});
@@ -23,7 +23,7 @@ const ContactForm = ({ addContact }) => {
             alert('Please fix validation errors before submitting the form');
             return;
         }
-        addContact(state);
+        addNewContact(state);
         setState({ ...emptyContact });
         setTouched({});
     };
@@ -36,35 +36,35 @@ const ContactForm = ({ addContact }) => {
 
     useEffect(() => {
         //validations
-        const errs = {};
+        const validationErrors = {};
         const { firstname, email, phone } = state;
         if (!firstname || firstname.length === 0) {
-            errs.firstname = { required: 'Firstname is mandatory' };
+            validationErrors.firstname = { required: 'Firstname is mandatory' };
         }
         else if (firstname.length < 3) {
-            errs.firstname = { minLength: 'At least 3 letters required for firstname' };
+            validationErrors.firstname = { minLength: 'At least 3 letters required for firstname' };
         }
 
         if (!email || email.length === 0) {
-            errs.email = { required: 'Email address is mandatory' };
+            validationErrors.email = { required: 'Email address is mandatory' };
         }
         else {
             const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if (re.test(email) === false) {
-                errs.email = { pattern: 'Invalid pattern for email' };
+                validationErrors.email = { pattern: 'Invalid pattern for email' };
             }
         }
 
         if (!phone || phone.length === 0) {
-            errs.phone = { required: 'Phone number is mandatory' };
+            validationErrors.phone = { required: 'Phone number is mandatory' };
         }
         else {
             const re = /^\d{10,12}$/;
             if (re.test(phone) === false) {
-                errs.phone = { pattern: 'Expected 10 to 12 digits' };
+                validationErrors.phone = { pattern: 'Expected 10 to 12 digits' };
             }
         }
-        setErrs({ ...errs });
+        setErrs({ ...validationErrors });
     }, [state]);
 
     return <>
@@ -136,4 +136,4 @@ const ContactForm = ({ addContact }) => {
     </>;
 };
 
-export default connect(null, { addContact })(ContactForm);
+export default connect(null, { addNewContact: addContact })(ContactForm);

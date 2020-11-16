@@ -1,6 +1,6 @@
 import { ADD_CONTACT, DELETE_CONTACT, FETCH_CONTACTS } from "../actions/types";
 
-const contactsReducer = (state = [], action) => {
+const contactsReducer = (state = [], action = {}) => {
     switch(action.type) {
         case FETCH_CONTACTS:
             return [...action.data];

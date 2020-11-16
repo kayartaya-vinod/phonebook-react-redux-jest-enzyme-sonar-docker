@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { deleteContact } from '../actions/phonebook-actions';
 
-const ContactCard = ({ contact, deleteContact }) => {
+export const ContactCard = ({ contact, removeContact }) => {
 
     return <>
         <div className="row">
@@ -21,7 +21,7 @@ const ContactCard = ({ contact, deleteContact }) => {
                 <button
                     onClick={() => {
                         if (window.confirm('Are you sure to delete this?')) {
-                            deleteContact(contact.id);
+                            removeContact(contact.id);
                         }
                     }}
                     className="btn btn-link text-danger">x</button>
@@ -30,4 +30,4 @@ const ContactCard = ({ contact, deleteContact }) => {
     </>;
 }
 
-export default connect(null, { deleteContact })(ContactCard);
+export default connect(null, { removeContact: deleteContact })(ContactCard);

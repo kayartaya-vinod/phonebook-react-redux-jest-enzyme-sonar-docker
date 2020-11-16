@@ -3,9 +3,9 @@ import ContactCard from './ContactCard';
 import { fetchContacts } from '../actions/phonebook-actions';
 import { useEffect } from 'react';
 
-const ContactList = ({ contacts, fetchContacts }) => {
+export const ContactList = ({ contacts, fetchAllContacts }) => {
 
-    useEffect(fetchContacts, []);
+    useEffect(fetchAllContacts, []);
 
     return <>
         <ul className="list-group">
@@ -24,4 +24,4 @@ const stateAsProps = (store) => {
     }
 };
 
-export default connect(stateAsProps, { fetchContacts })(ContactList);
+export default connect(stateAsProps, { fetchAllContacts: fetchContacts })(ContactList);
