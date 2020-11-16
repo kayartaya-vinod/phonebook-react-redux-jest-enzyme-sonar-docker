@@ -5,10 +5,12 @@ const baseUrl = 'http://localhost:4000/contacts/';
 
 export const fetchContacts = () => async (dispatch) => {
     const resp = await Axios.get(baseUrl);
-    dispatch({
-        type: FETCH_CONTACTS,
-        data: resp.data
-    });
+    if (resp) {
+        dispatch({
+            type: FETCH_CONTACTS,
+            data: resp.data
+        });
+    }
 };
 
 export const addContact = (contact) => async (dispatch) => {
